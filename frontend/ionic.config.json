@@ -1,0 +1,7 @@
+{
+  "name": "VirtualQueue",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
