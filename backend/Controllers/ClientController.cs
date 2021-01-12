@@ -30,11 +30,12 @@ namespace VirtualQueue.Controllers
         [HttpPost("get-ticket")]
         public IActionResult GetTicket(Guid QueueId)
         {
-            int number = _context.Clients.Any() ? _context.Clients
+            int number = _context.Clients
             .Where(c => c.CreationDate.Date == DateTime.Now.Date)
             .Where(c => c.Queue.Id == QueueId)
             .Select(c => c.Number)
-            .Max() : 0;
+            .DefaultIfEmpty()
+            .Max();
 
             EntityEntry<Client> entry = _context.Clients.Add(new Client
             {
