@@ -23,7 +23,7 @@ namespace VirtualQueue.Controllers
         }
 
         [HttpPut("call-next")]
-        public IActionResult CallNext(Guid QueueId)
+        public IActionResult CallNext([FromBody] Guid QueueId)
         {
             var next = _context.Clients
             .Where(c => c.Queue.Id == QueueId)

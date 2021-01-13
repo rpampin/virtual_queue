@@ -28,7 +28,7 @@ namespace VirtualQueue.Controllers
         }
 
         [HttpPost("get-ticket")]
-        public IActionResult GetTicket(Guid QueueId)
+        public IActionResult GetTicket([FromBody] Guid QueueId)
         {
             int number = _context.Clients
             .Where(c => c.CreationDate.Date == DateTime.Now.Date)
@@ -57,7 +57,7 @@ namespace VirtualQueue.Controllers
         }
 
         [HttpPut("cancel")]
-        public IActionResult Cancel(Guid ClientId)
+        public IActionResult Cancel([FromBody] Guid ClientId)
         {
             var client = _context.Clients
             .Where(c => c.Id == ClientId)
