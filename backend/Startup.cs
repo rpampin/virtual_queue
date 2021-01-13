@@ -28,7 +28,10 @@ namespace VirtualQueue
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();
+
             services.AddControllers();
+            
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "VirtualQueue", Version = "v1" });
@@ -36,7 +39,7 @@ namespace VirtualQueue
 
             services.AddDbContext<QueueDbContext>(options =>
             options.UseSqlite(Configuration.GetConnectionString("QueueContext")));
-
+            
             services.AddDatabaseDeveloperPageExceptionFilter();
         }
 
@@ -49,6 +52,8 @@ namespace VirtualQueue
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "VirtualQueue v1"));
             }
+
+            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
             app.UseHttpsRedirection();
 
