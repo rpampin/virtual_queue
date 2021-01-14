@@ -21,7 +21,7 @@ const Ticket: React.FC = () => {
     const [showLoading, setShowLoading] = useState(true);
 
     useEffect(() => {
-        async function requestTicket() {
+        const requestTicket = async () => {
             const options = {
                 method: 'POST',
                 body: JSON.stringify(location?.state?.queueId),
@@ -37,7 +37,7 @@ const Ticket: React.FC = () => {
         }
 
         requestTicket();
-    }, []);
+    }, [location]);
 
     return (
         <IonPage>
