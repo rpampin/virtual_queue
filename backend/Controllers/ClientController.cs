@@ -49,10 +49,11 @@ namespace VirtualQueue.Controllers
 
             return Ok(new
             {
-                entry.Entity.Id,
-                entry.Entity.Number,
-                entry.Entity.SecretCode,
-                entry.Entity.Queue.Name
+                Id = entry.Entity.Id,
+                Number = entry.Entity.Number,
+                SecretCode = entry.Entity.SecretCode,
+                QueueName = entry.Entity.Queue.Name,
+                CreationDate = entry.Entity.CreationDate.ToString()
             });
         }
 
