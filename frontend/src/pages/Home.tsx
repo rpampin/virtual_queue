@@ -26,6 +26,7 @@ const Home: React.FC<HomeProps> = ({ history }) => {
             const res = await fetch('http://localhost:5000/queue');
             const loadedData = await res.json();
             setData(loadedData);
+            setQueue(loadedData[0] || {});
         }
 
         loadData();
@@ -33,10 +34,7 @@ const Home: React.FC<HomeProps> = ({ history }) => {
 
     const requestTicket = async (e: React.FormEvent) => {
         e.preventDefault();
-        history.push({
-            pathname: '/ticket',
-            state: { queueId: queue?.id }
-        });
+        history.push('/ticket/' + queue?.id);
     }
 
     const queues = data || [];
@@ -47,9 +45,9 @@ const Home: React.FC<HomeProps> = ({ history }) => {
                 <div className="container">
                     <form noValidate onSubmit={requestTicket}>
                         <IonLabel>Queue</IonLabel>
-                        <IonSelect value={queues[0]} interface="action-sheet" name="queue" onIonChange={e => setQueue(e.detail.value)}>
-                            {queues.map(q => (
-                                <IonSelectOption key={q.id} value={q}>{q.name}</IonSelectOption>
+                        <IonSelect value={queue} interface="action-sheet" name="queue" onIonChange={e => setQueue(e.detail.value)}>
+                            {queues.map((q, i) => (
+                                <IonSelectOption key={i} value={q}>{q.name}</IonSelectOption>
                             ))}
                         </IonSelect>
                         <IonButton type="submit">

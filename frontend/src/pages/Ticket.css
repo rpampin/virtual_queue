@@ -93,6 +93,8 @@
   position: relative;
   top: 32px;
   left: 0px;
+  
+  margin-bottom: 3em;
 }
 
 #d-wrapper p {
