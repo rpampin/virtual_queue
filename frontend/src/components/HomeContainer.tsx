@@ -1,6 +1,6 @@
 import React from 'react';
-import { IonChip, IonContent, IonFab, IonFabButton, IonIcon, IonLabel } from '@ionic/react';
-import { alertCircleOutline, ticket } from 'ionicons/icons';
+import { IonButton, IonChip, IonContent, IonFab, IonFabButton, IonFabList, IonIcon, IonLabel } from '@ionic/react';
+import { alertCircle, ticket } from 'ionicons/icons';
 
 import './HomeController.css';
 
@@ -12,11 +12,17 @@ const HomeContainer: React.FC = () => {
                     <IonIcon icon={ticket} color="primary" style={{ fontSize: "2em" }} />
                     <IonLabel color="primary" style={{ fontSize: "2em" }}>V-QUEUE</IonLabel>
                 </IonChip>
-                <a style={{ textAlign: "center" }} href='https://www.freepik.com/vectors/money'>Money vector created by macrovector - www.freepik.com</a>
                 <IonFab horizontal="end" vertical="bottom" slot="fixed">
                     <IonFabButton size="small" color="light">
-                        <IonIcon icon={alertCircleOutline}></IonIcon>
+                        <IonIcon icon={alertCircle}></IonIcon>
                     </IonFabButton>
+                    <IonFabList side="start">
+                        <div className="custom-fab">
+                            <IonButton size="small" href="https://www.freepik.com/vectors/money" target="_blank">
+                                Vector created by macrovector
+                            </IonButton>
+                        </div>
+                    </IonFabList>
                 </IonFab>
             </div>
         </IonContent>

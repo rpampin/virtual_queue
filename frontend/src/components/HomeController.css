@@ -21,3 +21,17 @@ ion-item {
   background-position-y: bottom;
   background-repeat: no-repeat;
 }
+
+.custom-fab {
+  display: flex;
+  align-items: center;
+}
+
+ion-fab[horizontal="start"] .custom-fab {
+  flex-direction: row-reverse;
+}
+
+.custom-fab ion-button {
+  --height: 25px;
+  text-transform: none;
+}
