@@ -58,6 +58,7 @@ const Home: React.FC<HomeProps> = ({ history }) => {
                 </div>
             </IonContent>
         </IonPage>
+
     );
 };
 

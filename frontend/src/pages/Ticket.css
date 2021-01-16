@@ -4,6 +4,7 @@
 
 #d-wrapper {
   width: 80%;
+  max-width: 350px;
   background-color: #fff;
 }
 

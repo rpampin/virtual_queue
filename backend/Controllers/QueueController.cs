@@ -22,6 +22,16 @@ namespace VirtualQueue.Controllers
             return Ok(_context.Queues.ToList());
         }
 
+        [HttpGet("get-tickets")]
+        public IActionResult GetTickets([FromQuery] Guid QueueId)
+        {
+            return Ok(_context.Clients
+                .Where(c => c.Queue.Id == QueueId)
+                .Where(c => c.CreationDate.Date == DateTime.Now.Date)
+                .OrderByDescending(c => c.Number)
+                .ToList());
+        }
+
         [HttpPut("call-next")]
         public IActionResult CallNext([FromBody] Guid QueueId)
         {

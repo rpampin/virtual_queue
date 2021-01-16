@@ -14,7 +14,8 @@ interface VirtualTicket {
     id: string,
     number: number,
     queueName: string,
-    creationDate: Date
+    creationDate: Date,
+    secretCode: string
 }
 
 const Ticket: React.FC<TicketProps> = ({ history, match }) => {
@@ -84,6 +85,7 @@ const Ticket: React.FC<TicketProps> = ({ history, match }) => {
                         <div className="zig-zag-bottom zig-zag-top">
                             <h1>{ticket?.number}</h1>
                             <p>{ticket?.queueName}</p>
+                            <p className="t-info">CODE: {ticket?.secretCode}</p>
                             <p className="t-info">{ticket?.creationDate}</p>
                             <p className="t-info"><strong>Estimated waiting time: </strong>30 min</p>
                         </div>
