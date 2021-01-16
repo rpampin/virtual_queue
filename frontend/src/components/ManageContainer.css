@@ -1,0 +1,6 @@
+.main-title {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-transform: uppercase;
+  font-family: var(--ion-default-font);
+}

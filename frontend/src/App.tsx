@@ -10,12 +10,9 @@ import {
   IonTabBar,
   IonTabButton,
   IonIcon,
-  IonLabel,
+  IonLabel
 } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import Home from './pages/Home';
-import Ticket from './pages/Ticket';
-import ExploreContainer from './components/ExploreContainer';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -37,19 +34,28 @@ import '@ionic/react/css/display.css';
 import './theme/main.css';
 import { home, person, storefront } from 'ionicons/icons';
 
+/* Pages and Components */
+// import Home from './pages/Home';
+// import Ticket from './pages/Ticket';
+// import ExploreContainer from './components/ExploreContainer';
+
+import HomeContainer from './components/HomeContainer';
+import ClientContainer from './components/ClientContainer';
+import ManageContainer from './components/ManageContainer';
+
 const App: React.FC = () => (
   <IonApp>
     <IonHeader>
       <IonToolbar>
-        <IonTitle>Virtual Queue</IonTitle>
+        <IonTitle>V-Queue</IonTitle>
       </IonToolbar>
     </IonHeader>
     <IonReactRouter>
-      <IonTabs>
+      <IonTabs className="under-header">
         <IonRouterOutlet>
-          <Route path="/tab1" component={ExploreContainer} exact={true} />
-          <Route path="/tab2" component={ExploreContainer} exact={true} />
-          <Route path="/tab3" component={ExploreContainer} />
+          <Route path="/tab1" component={HomeContainer} exact={true} />
+          <Route path="/tab2" component={ClientContainer} exact={true} />
+          <Route path="/tab3" component={ManageContainer} exact={true} />
           <Route path="/" render={() => <Redirect to="/tab1" />} exact={true} />
         </IonRouterOutlet>
         <IonTabBar slot="bottom">

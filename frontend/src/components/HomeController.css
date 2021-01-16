@@ -1,0 +1,23 @@
+h1 {
+  white-space: nowrap;
+}
+
+.quote {
+  text-align: center;
+  text-transform: uppercase;
+  font-family: var(--ion-default-font);
+}
+
+ion-item {
+  --background: rgba(0, 0, 0, 0);
+  --border-color: rgba(0, 0, 0, 0);
+}
+
+.home {
+  background-image: url('/assets/home-background.jpg');
+  background-size: contain;
+  background-position: center bottom;
+  background-position-x: center;
+  background-position-y: bottom;
+  background-repeat: no-repeat;
+}
