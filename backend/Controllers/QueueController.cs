@@ -19,7 +19,8 @@ namespace VirtualQueue.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok(_context.Queues.ToList());
+            var queues = _context.Queues.ToList();
+            return Ok(queues);
         }
 
         [HttpGet("get-tickets")]

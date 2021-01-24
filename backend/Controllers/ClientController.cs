@@ -28,11 +28,11 @@ namespace VirtualQueue.Controllers
         }
 
         [HttpPost("get-ticket")]
-        public IActionResult GetTicket([FromBody] Guid QueueId)
+        public IActionResult GetTicket([FromBody] string QueueCode)
         {
             int number = _context.Clients
             .Where(c => c.CreationDate.Date == DateTime.Now.Date)
-            .Where(c => c.Queue.Id == QueueId)
+            .Where(c => c.Queue.Code == QueueCode)
             .Select(c => c.Number)
             .DefaultIfEmpty()
             .Max();
@@ -42,7 +42,7 @@ namespace VirtualQueue.Controllers
                 Number = number + 1,
                 CreationDate = DateTime.Now,
                 SecretCode = RandomString(),
-                Queue = _context.Queues.First(d => d.Id == QueueId),
+                Queue = _context.Queues.First(d => d.Code == QueueCode),
             });
 
             _context.SaveChanges();
