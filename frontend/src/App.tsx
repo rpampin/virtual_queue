@@ -42,6 +42,7 @@ import { home, person, storefront } from 'ionicons/icons';
 import HomeContainer from './components/HomeContainer';
 import ClientContainer from './components/ClientContainer';
 import ManageContainer from './components/ManageContainer';
+import Ticket from './components/Ticket';
 
 const App: React.FC = () => (
   <IonApp>
@@ -53,21 +54,22 @@ const App: React.FC = () => (
     <IonReactRouter>
       <IonTabs className="under-header">
         <IonRouterOutlet>
-          <Route path="/tab1" component={HomeContainer} exact={true} />
-          <Route path="/tab2" component={ClientContainer} exact={true} />
-          <Route path="/tab3" component={ManageContainer} exact={true} />
-          <Route path="/" render={() => <Redirect to="/tab1" />} exact={true} />
+          <Route path="/:tab(home)" component={HomeContainer} exact={true} />
+          <Route path="/:tab(client)" component={ClientContainer} exact={true} />
+          <Route path="/:tab(client)/ticket/:queue" component={Ticket}  />
+          <Route path="/:tab(manage)" component={ManageContainer} exact={true} />
+          <Route path="/" render={() => <Redirect to="/home" />} exact={true} />
         </IonRouterOutlet>
         <IonTabBar slot="bottom">
-          <IonTabButton tab="tab1" href="/tab1">
+          <IonTabButton tab="tab1" href="/home">
             <IonIcon icon={home} />
             <IonLabel>Home</IonLabel>
           </IonTabButton>
-          <IonTabButton tab="tab2" href="/tab2">
+          <IonTabButton tab="tab2" href="/client">
             <IonIcon icon={person} />
             <IonLabel>Client</IonLabel>
           </IonTabButton>
-          <IonTabButton tab="tab3" href="/tab3">
+          <IonTabButton tab="tab3" href="/manage">
             <IonIcon icon={storefront} />
             <IonLabel>Manage</IonLabel>
           </IonTabButton>

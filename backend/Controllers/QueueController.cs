@@ -23,11 +23,19 @@ namespace VirtualQueue.Controllers
             return Ok(queues);
         }
 
-        [HttpGet("get-tickets")]
-        public IActionResult GetTickets([FromQuery] Guid QueueId)
+        [HttpGet("valid-code/{queueCode}")]
+        public IActionResult IsValidCode([FromRoute] string queueCode)
+        {
+            return Ok(_context.Queues
+                .Where(q => q.Code == queueCode.ToUpper())
+                .Any());
+        }
+
+        [HttpGet("get-tickets/{queueId}")]
+        public IActionResult GetTickets([FromRoute] Guid queueId)
         {
             return Ok(_context.Clients
-                .Where(c => c.Queue.Id == QueueId)
+                .Where(c => c.Queue.Id == queueId)
                 .Where(c => c.CreationDate.Date == DateTime.Now.Date)
                 .OrderByDescending(c => c.Number)
                 .ToList());

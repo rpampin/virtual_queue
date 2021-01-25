@@ -27,8 +27,8 @@ namespace VirtualQueue.Data
 
             var queues = new Queue[]
             {
-                new Queue { Name = "Pharmacy" },
-                new Queue { Name = "Market" }
+                new Queue { Name = "Pharmacy", Code = RandomString() },
+                new Queue { Name = "Market", Code = RandomString() }
             };
 
             context.Queues.AddRange(queues);
