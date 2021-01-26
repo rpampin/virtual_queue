@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -13,6 +14,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using VirtualQueue.Data;
+using VirtualQueue.Models;
 
 namespace VirtualQueue
 {
@@ -31,16 +33,42 @@ namespace VirtualQueue
             services.AddCors();
 
             services.AddControllers();
-            
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "VirtualQueue", Version = "v1" });
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Description = "JWT Authorization Bearer",
+                    Type = SecuritySchemeType.Http, //We set the scheme type to http since we're using bearer authentication
+                    Scheme = "bearer" //The name of the HTTP Authorization scheme to be used in the Authorization header. In this case "bearer".
+                });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme{
+                            Reference = new OpenApiReference{
+                                Id = "Bearer", //The name of the previously defined security scheme.
+                                Type = ReferenceType.SecurityScheme
+                            }
+                        },new List<string>()
+                    }
+                });
             });
 
             services.AddDbContext<QueueDbContext>(options =>
             options.UseSqlite(Configuration.GetConnectionString("QueueContext")));
-            
+
             services.AddDatabaseDeveloperPageExceptionFilter();
+
+            services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddEntityFrameworkStores<QueueDbContext>();
+
+            services.AddIdentityServer()
+                .AddApiAuthorization<ApplicationUser, QueueDbContext>();
+
+            services.AddAuthentication()
+                .AddIdentityServerJwt();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,6 +77,7 @@ namespace VirtualQueue
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseMigrationsEndPoint();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "VirtualQueue v1"));
             }
@@ -58,6 +87,10 @@ namespace VirtualQueue
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseAuthentication();
+
+            app.UseIdentityServer();
 
             app.UseAuthorization();
 
